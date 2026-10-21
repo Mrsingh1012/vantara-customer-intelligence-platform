@@ -55,9 +55,9 @@ customer-behavior-prediction/
 ├── tests/
 ├── requirements.txt
 └── README.md
-```
 
-## Dashboard Preview
+
+```## Dashboard Preview
 
 ### Executive Overview
 
