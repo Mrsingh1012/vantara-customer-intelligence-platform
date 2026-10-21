@@ -33,7 +33,14 @@ customer-behavior-prediction/
 ├── tests/
 ├── requirements.txt
 └── README.md
-```
+
+```## Dashboard Preview
+
+### Executive Overview
+
+![Vantara Executive Overview](docs/images/vantara-dashboard-overview.jpg)
+
+The dashboard summarizes customer churn scoring, campaign selection capacity, and available business intelligence reports.
 
 ## Getting Started
 
