@@ -1,0 +1,16 @@
+﻿.venv/
+.venv310/
+__pycache__/
+*.py[cod]
+.env
+.ipynb_checkpoints/
+.pytest_cache/
+.coverage
+htmlcov/
+data/raw/
+data/interim/
+data/processed/
+chroma_db/
+
+# Generated data-quality reports
+reports/*.csv
