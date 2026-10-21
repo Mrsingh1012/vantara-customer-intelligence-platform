@@ -1,6 +1,4 @@
-
 """Create a conservative, auditable cleaning baseline."""
-
 from pathlib import Path
 
 import pandas as pd
@@ -12,22 +10,32 @@ OUTPUT_PATH = PROJECT_ROOT / "data" / "interim" / "transactions_cleaned.csv"
 
 
 def clean_transactions(df: pd.DataFrame) -> pd.DataFrame:
-    """Normalize text fields and add quality flags without dropping rows."""
+    """Normalize text and add quality flags without dropping rows."""
     cleaned = df.copy()
 
-    # Standardize text while preserving the original source workbook.
-    cleaned["StockCode"] = cleaned["StockCode"].astype("string").str.strip()
-    cleaned["Description"] = cleaned["Description"].astype("string").str.strip()
-    cleaned["Country"] = cleaned["Country"].astype("string").str.strip()
+    # Normalize text fields without modifying the source workbook.
+    for column in ["StockCode", "Description", "Country"]:
+        cleaned[column] = cleaned[column].astype("string").str.strip()
 
-    # Preserve potentially meaningful rows; expose quality issues as flags.
+    # Audit flags: preserve all rows for later investigation.
     cleaned["is_exact_duplicate"] = cleaned.duplicated(keep="first")
     cleaned["has_missing_customer_id"] = cleaned["Customer_ID"].isna()
     cleaned["has_missing_description"] = cleaned["Description"].isna()
-    cleaned["is_return_or_cancellation"] = cleaned["Quantity"] < 0
-    cleaned["has_non_positive_price"] = cleaned["Price"] <= 0
+    cleaned["is_negative_quantity"] = cleaned["Quantity"] < 0
+    cleaned["is_zero_quantity"] = cleaned["Quantity"] == 0
+    cleaned["is_negative_price"] = cleaned["Price"] < 0
+    cleaned["is_zero_price"] = cleaned["Price"] == 0
     cleaned["is_cancel_invoice"] = (
         cleaned["Invoice"].astype("string").str.startswith("C", na=False)
+    )
+
+    # A combined flag for review, not an automatic deletion rule.
+    cleaned["requires_transaction_review"] = (
+        cleaned["is_negative_quantity"]
+        | cleaned["is_zero_quantity"]
+        | cleaned["is_negative_price"]
+        | cleaned["is_zero_price"]
+        | cleaned["is_cancel_invoice"]
     )
 
     return cleaned
@@ -44,10 +52,19 @@ def main() -> None:
     print("\n--- Cleaning baseline summary ---")
     print(f"Input rows: {len(df):,}")
     print(f"Output rows: {len(cleaned):,}")
+    print(f"Rows removed: {len(df) - len(cleaned):,}")
     print(f"Exact duplicate occurrences flagged: {cleaned['is_exact_duplicate'].sum():,}")
     print(f"Missing customer IDs: {cleaned['has_missing_customer_id'].sum():,}")
-    print(f"Returns/cancellations by quantity: {cleaned['is_return_or_cancellation'].sum():,}")
-    print(f"Non-positive prices: {cleaned['has_non_positive_price'].sum():,}")
+    print(f"Missing descriptions: {cleaned['has_missing_description'].sum():,}")
+    print(f"Negative quantity rows: {cleaned['is_negative_quantity'].sum():,}")
+    print(f"Zero quantity rows: {cleaned['is_zero_quantity'].sum():,}")
+    print(f"Negative price rows: {cleaned['is_negative_price'].sum():,}")
+    print(f"Zero price rows: {cleaned['is_zero_price'].sum():,}")
+    print(f"Cancellation-prefixed invoices: {cleaned['is_cancel_invoice'].sum():,}")
+    print(
+        "Rows requiring transaction review: "
+        f"{cleaned['requires_transaction_review'].sum():,}"
+    )
     print(f"Output saved to: {OUTPUT_PATH}")
 
 
