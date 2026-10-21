@@ -1,0 +1,7 @@
+policy,customers_contacted,actual_churners_identified,false_positives,missed_churners,precision,recall,assumed_retention_success_rate,expected_retained_customers,assumed_cost_per_contact_inr,estimated_campaign_cost_inr,assumed_value_per_retained_customer_inr,estimated_retained_value_inr,estimated_net_value_inr
+Fixed threshold 0.524,1161,650,511,223,0.5598621877691645,0.7445589919816724,0.05,32.5,20.0,23220.0,1000.0,32500.0,9280.0
+Fixed threshold 0.524,1161,650,511,223,0.5598621877691645,0.7445589919816724,0.1,65.0,20.0,23220.0,1000.0,65000.0,41780.0
+Fixed threshold 0.524,1161,650,511,223,0.5598621877691645,0.7445589919816724,0.15,97.5,20.0,23220.0,1000.0,97500.0,74280.0
+Top 1500 customers,1500,792,708,81,0.528,0.9072164948453608,0.05,39.6,20.0,30000.0,1000.0,39600.0,9600.0
+Top 1500 customers,1500,792,708,81,0.528,0.9072164948453608,0.1,79.2,20.0,30000.0,1000.0,79200.0,49200.0
+Top 1500 customers,1500,792,708,81,0.528,0.9072164948453608,0.15,118.8,20.0,30000.0,1000.0,118800.0,88800.0

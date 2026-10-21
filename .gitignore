@@ -14,3 +14,35 @@ chroma_db/
 
 # Generated data-quality reports
 reports/*.csv
+
+# Large audit/review exports
+reports/duplicate_group_audit.csv
+reports/duplicate_rows_review.csv
+reports/large_duplicate_groups_review.csv
+reports/non_positive_prices_review.csv
+
+# Local environment and credentials
+.env.*
+!.env.example
+
+# Python packaging and build output
+build/
+dist/
+*.egg-info/
+
+# Local AI-tool configuration
+.claude/
+.cortex/
+
+# Allow only the demo reports required by the dashboard and tests
+!reports/churn_confusion_matrix.csv
+!reports/churn_test_customer_predictions.csv
+!reports/churn_campaign_ranked_demo.csv
+!reports/churn_rf_capacity_policy_test.csv
+!reports/churn_campaign_business_impact.csv
+
+# Customer-level prediction exports — keep local
+reports/churn_test_customer_predictions.csv
+reports/churn_campaign_ranked_demo.csv
+reports/churn_campaign_candidate_list_demo.csv
+reports/churn_rf_capacity_policy_predictions.csv
