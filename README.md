@@ -33,41 +33,13 @@ customer-behavior-prediction/
 ├── tests/
 ├── requirements.txt
 └── README.md
+```
 
-``## Dashboard Preview
-
-### Executive Overview
-
-![Vantara Executive Overview](docs/images/vantara-dashboard-overview.png.jpg.jpeg)
-
-## Project Structure
-
-```text
-customer-behavior-prediction/
-├── frontend/
-│   └── vantara_dashboard.py
-├── models_artifacts/
-├── reports/
-├── src/
-│   ├── features/
-│   ├── models/
-│   └── segmentation/
-├── tests/
-├── requirements.txt
-└── README.md
-
-
-```## Dashboard Preview
+## Dashboard Preview
 
 ### Executive Overview
 
-![Vantara Executive Overview](docs/images/vantara-dashboard-overview.png.jpg.jpeg)
-
-The dashboard summarizes customer churn scoring, campaign selection capacity, and available business intelligence reports.
-
-## Getting Started
-
-The dashboard summarizes customer churn scoring, campaign selection capacity, and available business intelligence reports.
+![Vantara Executive Overview](docs/images/vantara-dashboard-overview.jpg)
 
 The dashboard summarizes customer churn scoring, campaign selection capacity, and available business intelligence reports.
 
